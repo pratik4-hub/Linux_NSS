@@ -70,9 +70,9 @@ unsigned int hook_func(void *priv, struct sk_buff *skb, const struct nf_hook_sta
         return NF_DROP;
     }
 
-    if (ip_header->protocol == IPPROTO_ICMP)
+    if (ip_header->protocol == IPPROTO_TCP)
     {                                                                 //tcp=6
-        printk(KERN_INFO "Got ICMP Reply packet and dropped it. \n"); //log we’ve got udp packet to /var/log/messages
+        printk(KERN_INFO "TCP_Packet_captured \n"); //log we’ve got udp packet to /var/log/messages
         printk(KERN_INFO "src_ip: %pI4 \n", &ip_header->saddr);
         printk(KERN_INFO "dst_ip: %pI4\n", &ip_header->daddr);
         print_skbuff_packet(sock_buff);
