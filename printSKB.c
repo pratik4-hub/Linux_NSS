@@ -59,7 +59,7 @@ void print_skbuff_packet(struct sk_buff *skb)
     }
 }
 
-unsigned int hook_func(void *priv, struct sk_buff *skb, const struct nf_hook_state *state)
+unsigned int netfilter_hook_func(void *priv, struct sk_buff *skb, const struct nf_hook_state *state)
 {
     sock_buff = skb;
     ip_header = (struct iphdr *)skb_network_header(sock_buff); //grab network header using accessor
@@ -82,7 +82,7 @@ unsigned int hook_func(void *priv, struct sk_buff *skb, const struct nf_hook_sta
 
 int init_module(void)
 {
-    nfho.hook = hook_func;
+    nfho.hook = netfilter_hook_func;
     //nfho.hooknum = NF_IP_POST_ROUTING;                            //TCP reply packet capture.
     nfho.hooknum = NF_INET_POST_ROUTING; //TCP reply packet capture.
     nfho.pf = PF_INET;                   //IPV4 packets
